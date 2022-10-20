@@ -32,7 +32,7 @@ namespace Unity.XR.PXR.Editor
         {
             BuildPlayerWindow.RegisterBuildPlayerHandler(OnBuild);
             doNotShowAgain = GetDoNotShowBuildWarning();
-            Debug.Log("[Build Check] RegisterBuildPlayerHandler,Already Do not show: " + doNotShowAgain);
+            //Debug.Log("[Build Check] RegisterBuildPlayerHandler,Already Do not show: " + doNotShowAgain);
         }
         static bool GetDoNotShowBuildWarning()
         {
