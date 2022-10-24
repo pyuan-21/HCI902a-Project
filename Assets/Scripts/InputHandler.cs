@@ -8,8 +8,9 @@ public class InputHandler : MonoBehaviour
     public GameObject xrRig;
     public float heightOffset = 1.2f;
     public float moveSpeed = 0.1f;
+    public bool isFrenchKeyboard = false;
 
-    private float m_AxisToPressThreshold = 0.1f;
+    private float m_AxisToPressThreshold = 0.01f;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +34,7 @@ public class InputHandler : MonoBehaviour
 
         foreach (var device in inputDevices)
         {
-            if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out clickValue))
+            if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out clickValue) && clickValue.magnitude >= m_AxisToPressThreshold)
             {
                 //StartMove(position);
                 touchPadClick = true;
@@ -42,9 +43,17 @@ public class InputHandler : MonoBehaviour
         }
 
         // keyboard test
-        string[] keys = { "z", "s", "q", "d" };
+        List<string> keys = new List<string>();
+        if(isFrenchKeyboard)
+        {
+            keys.Add("z"); keys.Add("s"); keys.Add("q"); keys.Add("d");
+        }
+        else
+        {
+            keys.Add("w"); keys.Add("s"); keys.Add("a"); keys.Add("d");
+        }
         Vector2[] delta = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
-        for(int i = 0; i < keys.Length; i++)
+        for(int i = 0; i < keys.Count; i++)
         {
             if (Input.GetKey(keys[i]))
             {
@@ -68,7 +77,7 @@ public class InputHandler : MonoBehaviour
                         //Debug.Log("Hit at " + hits[i].point.y);
                         // clickValue x:[-1,1] from left to right; y:[-1,1] from bottom to top
                         // try to move xrRig
-                        Quaternion rot = xrRig.transform.rotation;
+                        Quaternion rot = Quaternion.AngleAxis(Camera.main.transform.eulerAngles.y, Vector3.up);
                         Vector3 temp1 = new Vector3(clickValue.x, 0, clickValue.y); // rot only works with 3D
                         Vector3 temp2 = rot * temp1; // rotate it
                         temp2 = temp2.normalized; // direction
