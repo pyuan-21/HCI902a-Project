@@ -34,8 +34,11 @@ public class GameLogic : MonoBehaviour
         UpdateBar();
     }
 
-    public void OnAddBuilding(Vector3 pos)
+    public bool OnAddBuilding(Vector3 pos)
     {
+        if (environmentValue <= 0)
+            return false;
+
         int randomIndex = UnityEngine.Random.Range(0, buildingNames.Count - 1);
         string buildingName = buildingNames[randomIndex];
         GameObject prefab = Resources.Load<GameObject>("BuildingPrefabs/" + buildingName);
@@ -46,16 +49,16 @@ public class GameLogic : MonoBehaviour
         prefabInstance.transform.localScale = Vector3.one;
 
         economyValue += 5;
-        economyValue = Mathf.Clamp(economyValue, 0, 100);
-
         environmentValue -= 5;
-        environmentValue = Mathf.Clamp(environmentValue, 0, 100);
         needUpdate = true;
+
+        return true;
     }
 
-    public void OnAddEnvironment(Vector3 pos)
+    public bool OnAddEnvironment(Vector3 pos)
     {
-
+        // TODO
+        return false;
     }
 
     private void UpdateBar()

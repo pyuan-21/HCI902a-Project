@@ -57,8 +57,7 @@ public class InteractHandler : MonoBehaviour
                     if (hits[i].transform.CompareTag("Ground"))
                     {
                         Vector3 bornPos = new Vector3(transform.position.x, hits[i].point.y, transform.position.z);
-                        game.OnAddBuilding(bornPos);
-                        removeItself = true;
+                        removeItself = game.OnAddBuilding(bornPos);
                         break;
                     }
                 }
