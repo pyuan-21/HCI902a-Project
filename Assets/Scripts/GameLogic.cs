@@ -7,6 +7,9 @@ public class GameLogic : MonoBehaviour
     private GameObject buildingRoot;
     private List<string> buildingNames;
 
+    private GameObject environmentRoot;
+    private List<string> environmentNames;
+
     public float environmentValue;
     public float economyValue;
 
@@ -15,13 +18,32 @@ public class GameLogic : MonoBehaviour
     public ProgressBar ecoBar;
     private bool needUpdate;
 
-    // Start is called before the first frame update
+
+    //water height [-4, -0.3]
+    public float wHeightMin = -4;
+    public float wHeightMax = -0.3f;
+    public Transform waterTrans;
+
+    // each time create/destroy a building will use this value to change the economy/environment value
+    public float changeValue = 5;
+
+    
     void Start()
     {
         buildingNames = new List<string>();
         buildingNames.Add("food_factory");
         buildingNames.Add("industrial_factory");
+        buildingNames.Add("electronic_store");
+        buildingNames.Add("house_1");
+        buildingNames.Add("mine");
+        buildingNames.Add("pharmacy");
         buildingRoot = new GameObject("Buildings");
+
+        environmentNames = new List<string>();
+        environmentNames.Add("Tree1");
+        environmentNames.Add("Tree2");
+        environmentNames.Add("Tree3");
+        environmentRoot = new GameObject("Environment");
 
         environmentValue = 100;
         economyValue = 0;
@@ -31,7 +53,7 @@ public class GameLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateBar();
+        UpdateEnvironment();
     }
 
     public bool OnAddBuilding(Vector3 pos)
@@ -47,9 +69,10 @@ public class GameLogic : MonoBehaviour
         prefabInstance.transform.position = pos;
         prefabInstance.transform.rotation = Quaternion.identity;
         prefabInstance.transform.localScale = Vector3.one;
+        prefabInstance.tag = "Buildings";
 
-        economyValue += 5;
-        environmentValue -= 5;
+        economyValue += changeValue;
+        environmentValue -= changeValue;
         needUpdate = true;
 
         return true;
@@ -57,17 +80,38 @@ public class GameLogic : MonoBehaviour
 
     public bool OnAddEnvironment(Vector3 pos)
     {
-        // TODO
-        return false;
+        if (environmentValue >= 100)
+            return false;
+
+        int randomIndex = UnityEngine.Random.Range(0, environmentNames.Count - 1);
+        string environmentName = environmentNames[randomIndex];
+        GameObject prefab = Resources.Load<GameObject>("EnvironmentPrefabs/" + environmentName);
+        GameObject prefabInstance = Instantiate<GameObject>(prefab);
+        prefabInstance.transform.SetParent(environmentRoot.transform);
+        prefabInstance.transform.position = pos;
+        prefabInstance.transform.rotation = Quaternion.identity;
+        prefabInstance.transform.localScale = Vector3.one;
+        prefabInstance.tag = "Environment";
+
+        economyValue -= changeValue;
+        environmentValue += changeValue;
+        needUpdate = true;
+
+        return true;
     }
 
-    private void UpdateBar()
+    private void UpdateEnvironment()
     {
         if (!needUpdate)
             return;
 
+        // update progress bar
         envBar.BarValue = environmentValue;
         ecoBar.BarValue = economyValue;
+
+        // update water height
+        float newHeight = envBar.BarValue / 100f * (wHeightMax - wHeightMin) + wHeightMin; // get newHeight from range [min, max]
+        waterTrans.position = new Vector3(0, newHeight, 0);
 
         needUpdate = false;
     }

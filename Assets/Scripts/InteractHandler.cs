@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class InteractHandler : MonoBehaviour
 {
-    private XRGrabInteractable grable;
+    private XRBaseInteractable interactable;
     private GameLogic game;
     private bool removeItself;
     public bool test = false;
@@ -14,10 +14,10 @@ public class InteractHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(gameObject.TryGetComponent<XRGrabInteractable>(out grable))
+        if(gameObject.TryGetComponent<XRBaseInteractable>(out interactable))
         {
-            grable.onSelectEnter.AddListener(this.EnterSelect);
-            grable.onSelectExit.AddListener(this.ExitSelect);
+            interactable.onSelectEnter.AddListener(this.EnterSelect);
+            interactable.onSelectExit.AddListener(this.ExitSelect);
         }
         var temp = GameObject.Find("XR Rig");
         if (temp != null)
@@ -74,8 +74,7 @@ public class InteractHandler : MonoBehaviour
                     if (hits[i].transform.CompareTag("Ground"))
                     {
                         Vector3 bornPos = new Vector3(transform.position.x, hits[i].point.y, transform.position.z);
-                        game.OnAddEnvironment(bornPos);
-                        removeItself = true;
+                        removeItself = game.OnAddEnvironment(bornPos);
                         break;
                     }
                 }
