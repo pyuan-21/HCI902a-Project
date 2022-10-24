@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public class ProgressBar : MonoBehaviour
 {
 
+    
+
     [Header("Title Setting")]
     public string Title;
     public Color TitleColor;
@@ -21,6 +23,7 @@ public class ProgressBar : MonoBehaviour
     public Sprite BarBackGroundSprite;
     [Range(1f, 100f)]
     public int Alert = 20;
+    public ProgressBar Pb;
     public Color BarAlertColor;
 
     [Header("Sound Alert")]
@@ -70,6 +73,7 @@ public class ProgressBar : MonoBehaviour
 
         UpdateValue(barValue);
 
+        BarValue = 8;
 
     }
 
