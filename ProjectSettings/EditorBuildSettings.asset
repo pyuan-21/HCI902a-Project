@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/SimpleLowPolyNature/Scenes/AAA.unity
-    guid: 16744fa7db84591478880eb67a8ec6ac
+    path: Assets/Scenes/AAA.unity
+    guid: a13930e42b23a034f8df4f82420f03ad
   m_configObjects:
     Unity.XR.PXR.Settings: {fileID: 11400000, guid: 7f4b340209929e640abfaaec53f271e2, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 797afc6216315174485b96417256a6cd, type: 2}

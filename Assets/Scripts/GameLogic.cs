@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class GameLogic : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class GameLogic : MonoBehaviour
     public float environmentValue;
     public float economyValue;
 
-    // TODO: change these two progressbar
+    public XRInteractionManager xrMgr;
+
     public ProgressBar envBar;
     public ProgressBar ecoBar;
     private bool needUpdate;
@@ -70,6 +72,7 @@ public class GameLogic : MonoBehaviour
         prefabInstance.transform.rotation = Quaternion.identity;
         prefabInstance.transform.localScale = Vector3.one;
         prefabInstance.tag = "Buildings";
+        prefabInstance.GetComponent<XRSimpleInteractable>().interactionManager = xrMgr;
 
         economyValue += changeValue;
         environmentValue -= changeValue;
@@ -92,6 +95,7 @@ public class GameLogic : MonoBehaviour
         prefabInstance.transform.rotation = Quaternion.identity;
         prefabInstance.transform.localScale = Vector3.one;
         prefabInstance.tag = "Environment";
+        prefabInstance.GetComponent<XRSimpleInteractable>().interactionManager = xrMgr;
 
         economyValue -= changeValue;
         environmentValue += changeValue;
