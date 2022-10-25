@@ -6,7 +6,7 @@ using UnityEngine.XR;
 public class InputHandler : MonoBehaviour
 {
     public GameObject xrRig;
-    public float heightOffset = 1.2f;
+    public float heightOffset = 0.2f;
     public float moveSpeed = 0.1f;
     public bool isFrenchKeyboard = false;
 
