@@ -17,12 +17,19 @@ A VR Game developed for HCI902a Class to showcase the evolution and effects of c
 
 </h6>
 <div align="center">
-<img src="./logo.jpg" width="50%" height="50%" alt="global warming">
+<img src="Media/logo.jpg" width="50%" height="50%" alt="global warming">
 </div>
 
 ---
 
 <br />
+
+## Gallery
+<div align="center">
+<img src="Media/dev.png" width="75%" height="75%" alt="dev">
+</div>
+
+
 
 ## How to install
 1. Download the APK file from the release section of the repo. 
