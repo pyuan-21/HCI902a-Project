@@ -11,8 +11,8 @@ public class GameLogic : MonoBehaviour
     private GameObject environmentRoot;
     private List<string> environmentNames;
 
-    public float environmentValue;
-    public float economyValue;
+    public float environmentValue = 100;
+    public float economyValue = 0;
 
     public XRInteractionManager xrMgr;
 
@@ -23,13 +23,15 @@ public class GameLogic : MonoBehaviour
 
     //water height 
     public float wHeightMin = -0.77f;
-    public float wHeightMax = -1.24f;
+    public float wHeightMax = 1.24f;
     public Transform waterTrans;
 
     // each time create/destroy a building will use this value to change the economy/environment value
-    public float changeValue = 5;
+    public float changeValue = 20;
 
-    
+    private List<Color> skyColorList = new List<Color> { new Color(65, 70, 70),
+        new Color(122, 187, 197), new Color(107, 129, 132), new Color(134,238,255) };
+
     void Start()
     {
         buildingNames = new List<string>();
@@ -47,8 +49,6 @@ public class GameLogic : MonoBehaviour
         environmentNames.Add("Tree3");
         environmentRoot = new GameObject("Environment");
 
-        environmentValue = 100;
-        economyValue = 0;
         needUpdate = true;
     }
 
@@ -56,6 +56,25 @@ public class GameLogic : MonoBehaviour
     void Update()
     {
         UpdateEnvironment();
+        UpdateClick();
+    }
+
+    void UpdateClick()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, 100.0f))
+            {
+                InteractHandler handler = null;
+                if(hit.transform.TryGetComponent<InteractHandler>(out handler))
+                {
+                    Debug.Log("Screen click");
+                    handler.EnterSelect(null);
+                }
+            }
+        }
     }
 
     public bool OnAddBuilding(Vector3 pos)
@@ -70,7 +89,7 @@ public class GameLogic : MonoBehaviour
         prefabInstance.transform.SetParent(buildingRoot.transform);
         prefabInstance.transform.position = pos;
         prefabInstance.transform.rotation = Quaternion.identity;
-        prefabInstance.transform.localScale = Vector3.one * 6;
+        prefabInstance.transform.localScale = Vector3.one * 4;
         prefabInstance.tag = "Buildings";
         prefabInstance.GetComponent<XRSimpleInteractable>().interactionManager = xrMgr;
 
@@ -104,6 +123,21 @@ public class GameLogic : MonoBehaviour
         return true;
     }
 
+    private Color GetSkyColorLerp(float t)
+    {
+        float delta = t / skyColorList.Count;
+        for(int i = 0; i < skyColorList.Count; i++)
+        {
+            float min = delta * i;
+            float max = delta * (i + 1);
+            if (min <= t && t <= max)
+            {
+                return skyColorList[i]/255.0f;
+            }
+        }
+        return skyColorList[skyColorList.Count - 1]/255.0f;
+    }
+
     private void UpdateEnvironment()
     {
         if (!needUpdate)
@@ -113,9 +147,16 @@ public class GameLogic : MonoBehaviour
         envBar.BarValue = environmentValue;
         ecoBar.BarValue = economyValue;
 
+        float t = 1.0f - envBar.BarValue / 100f;
+        Debug.Log("t: " + t);
+
         // update water height
-        float newHeight = (1.0f-envBar.BarValue/100f) * (wHeightMax - wHeightMin) + wHeightMin; // get newHeight from range [min, max]
+        float newHeight = t * (wHeightMax - wHeightMin) + wHeightMin; // get newHeight from range [min, max]
         waterTrans.position = new Vector3(0, newHeight, 0);
+
+        // also change the darkness of sky
+        Color newColor = GetSkyColorLerp(1 - t);
+        Camera.main.backgroundColor = newColor;
 
         needUpdate = false;
     }

@@ -12,6 +12,10 @@ public class InputHandler : MonoBehaviour
 
     private float m_AxisToPressThreshold = 0.01f;
 
+    private bool isFirstPressed = false;
+    private Vector2 screenPos;
+    public float rotateAngleSpeed = 0.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -96,6 +100,25 @@ public class InputHandler : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            isFirstPressed = true;
+            screenPos = Input.mousePosition;
+        }
+
+        if (Input.GetMouseButtonUp(1))
+            isFirstPressed = false;
+
+        if (Input.GetMouseButton(1))
+        {
+            Vector2 curPos = Input.mousePosition;
+            float deltaX = (curPos - screenPos).x;
+            deltaX /= (float)(Screen.width); // normalized
+            //Debug.Log("deltaX: " + deltaX);
+            Quaternion quat = Quaternion.AngleAxis(rotateAngleSpeed * deltaX, Vector3.up);
+            Camera.main.transform.rotation *= quat;
         }
     }
 }
