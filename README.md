@@ -1,5 +1,7 @@
-<img src="https://img.shields.io/badge/Unity-100000?style=for-the-badge&logo=unity&logoColor=white" alt="unity"/> 
-<img src="https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white" alt="C#" />
+![Unity](https://img.shields.io/badge/Unity-100000?style=for-the-badge&logo=unity&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-239120?style=for-the-badge&logo=c-sharp&logoColor=white)
+
+
 
 <h1 align="center">
     Hello World
@@ -15,7 +17,7 @@ A VR Game developed for HCI902a Class to showcase the evolution and effects of c
 
 </h6>
 <div align="center">
-<img src="assets/logo.png" width="50%" height="50%">
+<img src="./logo.jpg" width="50%" height="50%" alt="global warming">
 </div>
 
 ---
@@ -37,10 +39,10 @@ Once you load into the world, appreciate its beauty and the global illumination 
 You can point at any tree in the world and then press the `Trigger` to cut it down and replace it with a factory or a house. Click repeatedly to choose the structure you prefer. 
 
 
-Your actions have consequences. Cutting trees and placing factories will result in the `environment health` to drop and `money` to increase as displayed by the 2 dynamically updated `UI bars`. You will soon notice that also the `water level` continuiously rises to flood the world. 
+Your actions have consequences. Cutting trees and placing factories will result in the `environment health` to drop and `money` to increase as displayed by the 2 dynamically updated `UI bars`. You will soon notice that also the `water level` continuously  rises to flood the world. 
 
 
-Use the `volume up` or `volume down` button to adjust the music and sound effects's volume level to your liking.
+Use the `volume up` or `volume down` button to adjust the music and sound effects' volume level to your liking.
 
 
 
@@ -55,12 +57,11 @@ $ git clone https://github.com/pyuan-21/HCI902a-Project.git
 ```
 2. Import the project into your Unity Hub/Editor
 
-<br />
 
 ## Credits
 
-|   |   |   |   |   |
-|---|---|---|---|---|
+| Family Name  |  Name | Institution  |
+|---|---|---|
 | Chana  |  Salma | Institut Polytechnique de Paris  | 
 | Mahmoud |  Houssem  |  Université Paris-Saclay |
 | Yuan  | Putian  |  Institut Polytechnique de Paris |
