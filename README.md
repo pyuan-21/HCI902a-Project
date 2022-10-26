@@ -72,3 +72,11 @@ $ git clone https://github.com/pyuan-21/HCI902a-Project.git
 | Chana  |  Salma | Institut Polytechnique de Paris  | 
 | Mahmoud |  Houssem  |  Université Paris-Saclay |
 | Yuan  | Putian  |  Institut Polytechnique de Paris |
+
+## Ressources link:
+
+The naturel scene: https://assetstore.unity.com/packages/3d/environments/landscapes/simple-low-poly-nature-pack-157552
+
+Building: https://assetstore.unity.com/packages/3d/environments/urban/lowpoly-modern-city-buildings-set-64427
+
+UI slider: https://assetstore.unity.com/packages/tools/gui/progressbar-pack-120981
