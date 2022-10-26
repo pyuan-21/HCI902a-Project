@@ -11,7 +11,9 @@
 <h6 align="center">
 A VR Game developed for HCI902a Class to showcase the evolution and effects of climate change
 <br />
-<a href="">View Demo</a>
+<a href="https://youtu.be/DTjiZaqXFIg">View Demo(final)</a>
+·
+<a href="https://youtu.be/fIYr8tuW-qU">View Demo(first)</a>
 ·
 <a href="">Report Bug</a>
 
