@@ -32,6 +32,8 @@ public class GameLogic : MonoBehaviour
     private List<Color> skyColorList = new List<Color> { new Color(65, 70, 70),
         new Color(122, 187, 197), new Color(107, 129, 132), new Color(134,238,255) };
 
+    public Transform controller;
+
     void Start()
     {
         buildingNames = new List<string>();
@@ -57,6 +59,7 @@ public class GameLogic : MonoBehaviour
     {
         UpdateEnvironment();
         UpdateClick();
+        UpdateRightHandController();
     }
 
     void UpdateClick()
@@ -160,4 +163,14 @@ public class GameLogic : MonoBehaviour
 
         needUpdate = false;
     }
+
+    void UpdateRightHandController()
+    {
+        // only for recording in PC
+        if(controller!=null)
+        {
+            controller.rotation = Camera.main.transform.rotation;
+        }
+    }
+    
 }
