@@ -21,9 +21,9 @@ public class GameLogic : MonoBehaviour
     private bool needUpdate;
 
 
-    //water height [-4, -0.3]
-    public float wHeightMin = -4;
-    public float wHeightMax = -0.3f;
+    //water height 
+    public float wHeightMin = -0.77f;
+    public float wHeightMax = -1.24f;
     public Transform waterTrans;
 
     // each time create/destroy a building will use this value to change the economy/environment value
@@ -70,7 +70,7 @@ public class GameLogic : MonoBehaviour
         prefabInstance.transform.SetParent(buildingRoot.transform);
         prefabInstance.transform.position = pos;
         prefabInstance.transform.rotation = Quaternion.identity;
-        prefabInstance.transform.localScale = Vector3.one;
+        prefabInstance.transform.localScale = Vector3.one * 6;
         prefabInstance.tag = "Buildings";
         prefabInstance.GetComponent<XRSimpleInteractable>().interactionManager = xrMgr;
 
@@ -114,7 +114,7 @@ public class GameLogic : MonoBehaviour
         ecoBar.BarValue = economyValue;
 
         // update water height
-        float newHeight = envBar.BarValue / 100f * (wHeightMax - wHeightMin) + wHeightMin; // get newHeight from range [min, max]
+        float newHeight = (1.0f-envBar.BarValue/100f) * (wHeightMax - wHeightMin) + wHeightMin; // get newHeight from range [min, max]
         waterTrans.position = new Vector3(0, newHeight, 0);
 
         needUpdate = false;
