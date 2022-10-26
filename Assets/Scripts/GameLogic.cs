@@ -20,6 +20,8 @@ public class GameLogic : MonoBehaviour
     public ProgressBar ecoBar;
     private bool needUpdate;
 
+    public AudioSource soundPlayer;
+
 
     //water height 
     public float wHeightMin = -0.77f;
@@ -99,6 +101,8 @@ public class GameLogic : MonoBehaviour
         economyValue += changeValue;
         environmentValue -= changeValue;
         needUpdate = true;
+
+        soundPlayer.Play();
 
         return true;
     }
